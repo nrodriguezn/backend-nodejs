@@ -14,4 +14,29 @@ function createToken(user){
   return jwt.encode(payload, config.SECRET_TOKEN)
 }
 
-module.exports = createToken
+function decodeToken(token){  //la promesa se recibe en auth de middlewares
+    const decoded = new Promise((resolve, reject) => {//promesa resuelta, se resolvio la funcion y reject que se invoca cuando ocurre un error
+      try{
+        const payload = jwt.decode(token, config.SECRET_TOKEN)
+        if (payload.exp <= moment().unix()){//verificando si ya caduco
+          reject({  //para que entre en el catch de la promesa
+            status: 401,
+            message: 'el token ha expirado'
+          })
+        }
+        resolve(payload.sub)  //si el token es correcto
+      }catch(err){
+        reject({
+          status: 500,
+          message: 'Invalid Token'
+        })
+      }
+    })
+    return decoded  //devuelve la promesa
+}
+
+
+module.exports = {
+  createToken,
+  decodeToken
+}
