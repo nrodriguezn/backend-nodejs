@@ -4,14 +4,15 @@
   "description": "proyecto de apirestful con nodejs y express",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon node_modules/index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nicolas Rodriguez",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.1",
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "mongoose": "^4.11.11"
   },
   "devDependencies": {
     "nodemon": "^1.12.0"
