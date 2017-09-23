@@ -43,6 +43,7 @@ function saveProduct( req, res) {
   })
 }
 
+
 function updateProduct(req, res){
   let productId = req.params.productId
   let update = req.body

@@ -4,19 +4,18 @@ const mongoose = require('mongoose')
 const User = require('../models/user')
 const service = require('../services')
 
-function singUp(req, res){
+function signUp(req, res){
   const user = new User({
     email: req.body.email,
     displayName: req.body.displayName,
   })
   user.save((err) => {
     if (err) res.status(500).send({message: `Error al crear el usuario: ${err}`})
-
     return res.status(200).send({ token: service.createToken(user) })
   })
 }
 
-function singIn(req, res){
+function signIn(req, res){
   User.find({ email: req.body.email }, (err, user) => {
     if(err) return res.status(500).send({ message: err })
     if(!user) return res.status(404).send({message: 'no existe el usuario'})
@@ -30,6 +29,6 @@ function singIn(req, res){
 }
 
 module.exports = {
-  singUp,
-  singIn
+  signUp,
+  signIn
 }

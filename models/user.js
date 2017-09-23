@@ -17,9 +17,9 @@ const UserSchema = new Schema({
 //se puede ejecutar antes o despues de que el modelo haya sido guardado, en este caso antes
 UserSchema.pre('save', (next) => {
   let user = this
-  if (!user.isModified('password')) return next()
+//  if (!user.isModified('password')) return next()
 
-  bcrypt.genSalt(10, (err, salt) = {
+  bcrypt.genSalt(10, (err, salt) => {
     if (err) return next()
 
     bcrypt.hash(user.password, salt, null, (err, hash) => {
@@ -34,7 +34,7 @@ UserSchema.methods.gravatar = function (){
   if(!this.email) return `https://gravatar.com/avatar/?s=200&d=retro`
 
   const md5 = crypto.createHash('md5').update(this.email).digest('hex')
-  return `https://gravatar.com/avatar/${mdg}?s=200&d=retro`
+  return `https://gravatar.com/avatar/${md5}?s=200&d=retro`
 }
 
-model.exports = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema)
